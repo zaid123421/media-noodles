@@ -1,24 +1,40 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { CustomCursor, useFinePointer } from "./components/CustomCursor";
 import { EmailBeamBorderInput } from "./components/EmailBeamBorderInput";
 import { FlipDigit } from "./components/ui/FlipUnit";
 
+/** Same duration as previous initial display: 46d 17h 15m 29s */
+const INITIAL_REMAINING_SECONDS =
+  46 * 86400 + 17 * 3600 + 15 * 60 + 29;
+
+function splitCountdown(totalSec: number) {
+  const s = Math.max(0, totalSec);
+  return {
+    days: Math.floor(s / 86400),
+    hours: Math.floor((s % 86400) / 3600),
+    minutes: Math.floor((s % 3600) / 60),
+    seconds: s % 60,
+  };
+}
+
 export default function ComingSoonPage() {
   const finePointer = useFinePointer();
-  const [timeLeft, setTimeLeft] = useState({ days: 46, hours: 17, minutes: 15, seconds: 29 });
+  const [remainingSeconds, setRemainingSeconds] = useState(INITIAL_REMAINING_SECONDS);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        return { ...prev, seconds: 59 };
-      });
+      setRemainingSeconds((prev) => Math.max(0, prev - 1));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const secondsStr = timeLeft.seconds.toString().padStart(2, '0');
+  const timeLeft = useMemo(
+    () => splitCountdown(remainingSeconds),
+    [remainingSeconds],
+  );
+
+  const secondsStr = timeLeft.seconds.toString().padStart(2, "0");
 
   return (
     <main

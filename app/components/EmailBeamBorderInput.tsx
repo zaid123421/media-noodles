@@ -45,7 +45,7 @@ export function EmailBeamBorderInput() {
           strokeWidth="2.5"
           strokeLinecap="round"
           pathLength={100}
-          strokeDasharray="16 88"
+          strokeDasharray="16 84"
           className="email-beam-border__stroke"
           filter={`url(#${filterId})`}
         />
