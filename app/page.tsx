@@ -1,65 +1,113 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect } from "react";
+import { CustomCursor, useFinePointer } from "./components/CustomCursor";
+import { EmailBeamBorderInput } from "./components/EmailBeamBorderInput";
+import { FlipDigit } from "./components/ui/FlipUnit";
 
-export default function Home() {
+export default function ComingSoonPage() {
+  const finePointer = useFinePointer();
+  const [timeLeft, setTimeLeft] = useState({ days: 46, hours: 17, minutes: 15, seconds: 29 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        return { ...prev, seconds: 59 };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const secondsStr = timeLeft.seconds.toString().padStart(2, '0');
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main
+      className={`relative min-h-screen w-full bg-[#0a0a0a] text-white overflow-hidden flex flex-col items-center justify-center p-6 font-sans ${finePointer ? "cursor-none custom-cursor-root" : ""}`}
+    >
+      {finePointer ? <CustomCursor /> : null}
+      <div className="absolute inset-0 bg-[url('/images/cable-background.png')] bg-cover bg-center" />
+      
+      {/* HEADER */}
+      <header className="absolute top-0 w-full p-8 flex justify-between items-center max-w-7xl">
+        <img src="/images/logo.png" alt="DARTECH" className="h-8" />
+        <a href="#" className="hover:text-red-500 duration-300 flex items-center gap-1 text-sm">Contact Us <span className="text-2xl">↗</span></a>
+      </header>
+
+      {/* CENTER GLASS CARD */}
+      <section className="relative z-10 w-full flex flex-col items-center justify-center px-4 mt-16">
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 text-center">
+          COMING SOON<span className="text-red-500">!</span>
+        </h1>
+        
+        <div className="bg-white/5 backdrop-blur-sm p-6 md:p-12 text-center max-w-lg w-full">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 font-normal">Join our waitlist!</h2>
+          <p className="text-md md:text-md mb-8 mx-auto max-w-[400px] font-light">
+            Sign up for our newsletter to receive the latest updates and insights straight to your inbox
           </p>
+          
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+            <EmailBeamBorderInput />
+            <button
+              type="button"
+              className="min-h-[2.75rem] w-full shrink-0 rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-colors hover:bg-gray-200 sm:w-auto sm:self-stretch sm:py-0"
+            >
+              Join
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* COUNTDOWN SECTION */}
+      <section className="z-20 mt-8 flex flex-wrap justify-center items-center gap-2 font-light">
+        <div className="flex justify-center">
+        {/* DAY Group */}
+          <div className="flex flex-col items-center gap-1">
+            <div className="text-[20px] md:text-[40px] leading-none">
+              {timeLeft.days.toString().padStart(2, '0')}
+            </div>
+            <div className="text-[10px] md:text-[12px] tracking-[0.2em] uppercase">
+              DAYS
+            </div>
+          </div>
+
+          {/* Separator */}
+          <div className="text-[20px] md:text-[30px] mx-2">:</div>
+
+          {/* HOUR Group */}
+          <div className="flex flex-col items-center gap-1">
+            <div className="text-[20px] md:text-[40px] leading-none">
+              {timeLeft.hours.toString().padStart(2, '0')}
+            </div>
+            <div className="text-[10px] md:text-[12px] tracking-[0.2em] uppercase">
+              HOUR
+            </div>
+          </div>
+
+          {/* Separator */}
+          <div className="text-[20px] md:text-[30px] mx-2">:</div>
+
+          {/* MIN Group */}
+          <div className="flex flex-col items-center gap-1">
+            <div className="text-[20px] md:text-[40px] leading-none">
+              {timeLeft.minutes.toString().padStart(2, '0')}
+            </div>
+            <div className="text-[10px] md:text-[12px] tracking-[0.2em] uppercase">
+              MIN
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+
+        {/* الثواني (تأثير الفلب) */}
+        <div className="flex flex-col items-center gap-1 md:ml-4">
+          <div className="flex gap-2">
+            <FlipDigit digit={secondsStr[0]} />
+            <FlipDigit digit={secondsStr[1]} />
+          </div>
+          <div className="text-[10px] md:text-[14px] tracking-[1em] uppercase mt-3 ml-[1em]">
+            SECONDS
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

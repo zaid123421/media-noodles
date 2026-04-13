@@ -3,13 +3,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans: var(--font-aktiv), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +19,77 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  /* 2. تطبيق الخط صراحة على الجسم */
+  font-family: var(--font-aktiv);
+}
+
+/* Email field: red “beam” segment travels along pill perimeter (SVG stroke-dashoffset) */
+.email-beam-border {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border-radius: 9999px;
+  isolation: isolate;
+}
+
+.email-beam-border__stroke {
+  stroke-dashoffset: 0;
+  animation: email-beam-dash 4s linear infinite;
+}
+
+@keyframes email-beam-dash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.email-beam-border__input {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: calc(100% - 6px);
+  margin: 3px;
+  align-self: stretch;
+  min-height: 2.75rem;
+  border: none;
+  border-radius: 9999px;
+  background: rgba(128, 128, 128, 0.6);
+  padding: 0.875rem 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #fff;
+  outline: none;
+  /* transition: box-shadow 0.2s ease, background-color 0.2s ease; */
+  /* box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06); */
+}
+
+.email-beam-border__input::placeholder {
+  color: white;
+}
+
+/* .email-beam-border__input:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    inset 0 0 0 1px rgb(248 113 113 / 0.35);
+} */
+
+@media (prefers-reduced-motion: reduce) {
+  .email-beam-border__stroke {
+    animation: none;
+    stroke-dasharray: 12 88;
+    stroke-dashoffset: 0;
+    opacity: 0.95;
+  }
+}
+
+/* Custom cursor: UA + Tailwind preflight set cursor on button/input/a — must beat those rules */
+.custom-cursor-root,
+.custom-cursor-root *,
+body.custom-cursor-active,
+body.custom-cursor-active *,
+body.custom-cursor-active *::before,
+body.custom-cursor-active *::after {
+  cursor: none !important;
 }
