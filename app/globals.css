@@ -83,13 +83,3 @@ body {
     opacity: 0.95;
   }
 }
-
-/* Custom cursor: UA + Tailwind preflight set cursor on button/input/a — must beat those rules */
-.custom-cursor-root,
-.custom-cursor-root *,
-body.custom-cursor-active,
-body.custom-cursor-active *,
-body.custom-cursor-active *::before,
-body.custom-cursor-active *::after {
-  cursor: none !important;
-}

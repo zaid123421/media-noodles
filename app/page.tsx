@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { CustomCursor, useFinePointer } from "./components/CustomCursor";
 import { EmailBeamBorderInput } from "./components/EmailBeamBorderInput";
+import { RedSquareFollower, useFinePointer } from "./components/RedSquareFollower";
 import { FlipDigit } from "./components/ui/FlipUnit";
 
 /** Same duration as previous initial display: 46d 17h 15m 29s */
@@ -38,16 +38,14 @@ export default function ComingSoonPage() {
   const secondsStr = timeLeft.seconds.toString().padStart(2, "0");
 
   return (
-    <main
-      className={`relative min-h-screen w-full bg-[#0a0a0a] text-white overflow-hidden flex flex-col items-center justify-center p-6 font-sans ${finePointer ? "cursor-none custom-cursor-root" : ""}`}
-    >
-      {finePointer ? <CustomCursor /> : null}
+    <main className="relative min-h-screen w-full bg-[#0a0a0a] text-white overflow-hidden flex flex-col items-center justify-center p-6 font-sans">
+      {finePointer ? <RedSquareFollower /> : null}
       <div className="absolute inset-0 bg-[url('/images/cable-background.png')] bg-cover bg-center" />
       
       {/* HEADER */}
-      <header className="absolute top-0 w-full p-8 flex justify-between items-center max-w-7xl">
-        <img src="/images/Secondary-logo-01.png" alt="DARTECH" className="h-8" />
-        <a href="#" className="hover:text-red-500 duration-300 flex items-center gap-1.5 text-sm">
+      <header className="absolute top-0 w-full px-4 lg:px-0 py-8 flex justify-between items-center max-w-7xl">
+        <img src="/images/Secondary-logo-01.png" alt="DARTECH" className="h-11 md:h-14" />
+        <a href="#" className="hover:text-red-500 duration-300 flex items-center gap-2 text-lg md:text-xl">
           Contact Us
           <ArrowUpRight className="size-[1em] shrink-0" strokeWidth={2} aria-hidden />
         </a>
@@ -55,13 +53,13 @@ export default function ComingSoonPage() {
 
       {/* CENTER GLASS CARD */}
       <section className="relative z-10 w-full flex flex-col items-center justify-center px-4 mt-16">
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 text-center">
+        <h1 className="text-5xl md:text-7xl font-extrabold mb-2 text-center">
           COMING SOON<span className="text-red-500">!</span>
         </h1>
         
-        <div className="bg-white/5 backdrop-blur-sm p-6 md:p-12 text-center max-w-lg w-full">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 font-normal">Join our waitlist!</h2>
-          <p className="text-md md:text-md mb-8 mx-auto max-w-[400px] font-light">
+        <div className="bg-white/5 backdrop-blur-sm px-8 py-10 md:px-14 md:py-14 text-center max-w-[600px] w-full">
+          <h2 className="text-3xl md:text-4xl font-normal mb-5">Join our waitlist!</h2>
+          <p className="text-sm md:text-base mb-10 mx-auto max-w-[480px] font-light leading-relaxed">
             Sign up for our newsletter to receive the latest updates and insights straight to your inbox
           </p>
           
@@ -69,7 +67,7 @@ export default function ComingSoonPage() {
             <EmailBeamBorderInput />
             <button
               type="button"
-              className="min-h-[2.75rem] w-full shrink-0 rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-colors hover:bg-gray-200 sm:w-auto sm:self-stretch sm:py-0"
+              className="min-h-[2.75rem] w-full shrink-0 rounded-full bg-white px-10 py-3.5 text-sm font-medium text-black transition-colors hover:bg-gray-200 sm:w-auto sm:self-stretch sm:py-0"
             >
               Join
             </button>
