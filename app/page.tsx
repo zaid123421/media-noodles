@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { CustomCursor, useFinePointer } from "./components/CustomCursor";
 import { EmailBeamBorderInput } from "./components/EmailBeamBorderInput";
 import { FlipDigit } from "./components/ui/FlipUnit";
@@ -46,7 +47,10 @@ export default function ComingSoonPage() {
       {/* HEADER */}
       <header className="absolute top-0 w-full p-8 flex justify-between items-center max-w-7xl">
         <img src="/images/logo.png" alt="DARTECH" className="h-8" />
-        <a href="#" className="hover:text-red-500 duration-300 flex items-center gap-1 text-sm">Contact Us <span className="text-2xl">↗</span></a>
+        <a href="#" className="hover:text-red-500 duration-300 flex items-center gap-1.5 text-sm">
+          Contact Us
+          <ArrowUpRight className="size-[1em] shrink-0" strokeWidth={2} aria-hidden />
+        </a>
       </header>
 
       {/* CENTER GLASS CARD */}
