@@ -59,7 +59,7 @@ export default function ComingSoonPage() {
         
         <div className="bg-white/5 backdrop-blur-sm px-8 py-10 md:px-14 md:py-14 text-center max-w-[600px] w-full">
           <h2 className="text-3xl md:text-4xl font-normal mb-5">Join our waitlist!</h2>
-          <p className="text-sm md:text-base mb-10 mx-auto max-w-[480px] font-light leading-relaxed">
+          <p className="text-sm md:text-lg mb-10 mx-auto max-w-[480px] font-light leading-relaxed">
             Sign up for our newsletter to receive the latest updates and insights straight to your inbox
           </p>
           
